@@ -1,0 +1,31 @@
+{
+  "name": "helen",
+  "version": "0.0.1",
+  "description": "Tool for har-diff report generation",
+  "main": "helen.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stefanjudis/helen.git"
+  },
+  "keywords": [
+    "performance",
+    "har",
+    "perf",
+    "report"
+  ],
+  "author": "stefan judis<stefanjudis@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stefanjudis/helen/issues"
+  },
+  "homepage": "https://github.com/stefanjudis/helen",
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "commander": "^2.3.0",
+    "debug": "^1.0.4",
+    "prettyjson": "^1.0.0"
+  }
+}

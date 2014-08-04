@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+var fs      = require( 'fs' );
+var logger  = require( '../lib/log' );
+var path    = require( 'path' );
+var pretty  = require( 'prettyjson' );
+var program = require( 'commander' );
+
+var Helen   = require( '../helen' );
+
+program
+  .version(
+    JSON.parse(
+      fs.readFileSync(
+        'package.json',
+        {
+          encoding : 'utf8'
+        }
+      )
+    ).version
+  )
+  .parse( process.argv );
+
+// tell the user when using wrong
+if ( program.args.length < 2 ) {
+  console.error( 'You have to pass two arguments to HELEN.\n' );
+  console.error( 'Use HELEN like:\n' );
+  console.error( '  $ helen example/path/1.har example/path/2.har' );
+
+  process.exit( 1 );
+}
+
+// catch constructor errors
+// which should only appear
+// if paths to given har-files
+// are not correct
+try {
+  var helen = new Helen( program.args[ 0 ], program.args[ 1 ] );
+} catch( e ) {
+  console.error( e.message );
+
+  process.exit( 1 );
+}
+
+// let's kick things off!!!
+helen.generateReport()
+      .then( function( result ) {
+        console.log( 'HELEN finished report.\n' );
+        console.log( 'RESULT:\n' );
+        console.log(
+          pretty.render(
+            result,
+            {
+              indent : 2
+            }
+        ) );
+
+        process.exit();
+      } );
+
